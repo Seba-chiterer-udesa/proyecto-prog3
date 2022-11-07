@@ -10,6 +10,7 @@ class Login extends Component {
 			pass: '',
 		};
 	}
+    
 	loginUser(email, pass) {
 		auth
 			.signInWithEmailAndPassword(email, pass)
