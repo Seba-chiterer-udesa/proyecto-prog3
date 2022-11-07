@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { auth } from '../firebase/config';
 
 class Profile extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {};
