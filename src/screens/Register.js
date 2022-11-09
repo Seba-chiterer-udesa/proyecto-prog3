@@ -61,7 +61,7 @@ class Register extends Component {
 							bio: '',
 							checkpass:'',
 						});
-						this.props.navigation.navigate('HomeMenu');
+						this.props.navigation.navigate('Login');
 					});
 					
 			})
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'red',
 	}, */
 	field: {
-		width: "80%",
+		width: "50%",
 		backgroundColor: "#E5E5E5",
 		textAlign: "center",
 		padding: 7,

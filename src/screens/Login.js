@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'red',
 	}, */
 	field: {
-		width: "80%",
+		width: "50%",
 		backgroundColor: "#E5E5E5",
 		textAlign: "center",
 		padding: 7,
