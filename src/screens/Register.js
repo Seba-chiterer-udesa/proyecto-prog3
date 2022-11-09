@@ -76,9 +76,10 @@ class Register extends Component {
 
 	render() {
 		return (
-			<View>
-				<Text>Registro</Text>
-				<View>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.headertitle}>Registro</Text>
+				</View>
 
 					<TextInput 
 					style={styles.field} 
@@ -117,25 +118,59 @@ class Register extends Component {
 					onChangeText={(text) => this.setState({ bio: text })}
 					value={this.state.bio}	/>
 
-					<Text onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
+					<Text style={styles.title} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
 					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.username)}>
-						<Text>Registrarme</Text>
+						<Text style={styles.title}>Registrarme</Text>
 					</TouchableOpacity>
 
-					<Text>{this.state.error}</Text>
-					
-
-				</View>
+					<Text style={styles.title}>{this.state.error}</Text>
+				
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	field: {
-		color: ByteLengthQueuingStrategy,
-		
+	header:{
+		backgroundColor: "#14213D",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},	
+	headertitle:{
+		color: "white",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
 	},
+	container:{
+		overflow: "hidden",
+		flex: 1,
+		flexDirection: "column",
+		alignItems: "center",
+		backgroundColor: "#FFFFFF",
+		color: "#ff9f68",
+		paddingTop: 20,
+	},
+	/* form:{
+		backgroundColor: 'red',
+	}, */
+	field: {
+		width: "80%",
+		backgroundColor: "#E5E5E5",
+		textAlign: "center",
+		padding: 7,
+		marginTop: 5,
+		borderRadius: 15,
+	  },
+	  title: {
+		color: "#000000",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	  },
 });
 
 export default Register;
