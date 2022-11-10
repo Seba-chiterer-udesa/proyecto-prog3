@@ -43,12 +43,12 @@ class Post extends Component {
 			.collection('posts')
 			.doc(this.props.dataPost.id)
 			.update({
-				likes: "",
+				likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email),
 			})
 			.then(() =>
 				this.setState({
-					cantidadDeLikes: this.state.cantidadDeLikes + 1,
-					myLike: true,
+					cantidadDeLikes: this.state.cantidadDeLikes - 1,
+					myLike: false,
 				})
 			)
 			.catch((error) => console.log(error));

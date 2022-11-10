@@ -112,7 +112,7 @@ class Register extends Component {
 					value={this.state.checkpass} />
 
 					<TextInput
-					style={styles.field}
+					style={styles.field}b
 					placeholder="Biografia"
 					keyboardType="default"
 					onChangeText={(text) => this.setState({ bio: text })}
