@@ -21,7 +21,7 @@ class Login extends Component {
 					email: '',
 					pass: '',
 				});
-				this.props.navigation.navigate('HomeMenu');
+				this.props.navigation.navigate('Home');
 			})
 			.catch((error) => 
 			{console.log(error)

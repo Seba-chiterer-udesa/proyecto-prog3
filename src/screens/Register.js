@@ -49,10 +49,10 @@ class Register extends Component {
 				db
 					.collection('users')
 					.add({
-						email: email,
-						username: username,
-						bio: bio,
-						checkpass: checkpass, 
+						email: this.state.email,
+						username: this.state.username,
+						bio: this.state.bio,
+						checkpass: this.state.checkpass,
 					})
 					.then((res) => {
 						this.setState({

@@ -38,7 +38,21 @@ class Post extends Component {
 			.catch((error) => console.log(error));
 	}
 
-	/* unLike() {} */
+	unLike() {
+        db
+			.collection('posts')
+			.doc(this.props.dataPost.id)
+			.update({
+				likes: "",
+			})
+			.then(() =>
+				this.setState({
+					cantidadDeLikes: this.state.cantidadDeLikes + 1,
+					myLike: true,
+				})
+			)
+			.catch((error) => console.log(error));
+    }
 
 	render() {
 		return (
