@@ -37,7 +37,7 @@ export default class Search extends Component {
     }
         
     filter(filtro){
-        console.log(this.state.resultados)
+         console.log(this.state.resultados)
         if (this.state.filterBy.length !== 0 ) {
             let resultadosFiltrados = this.state.users.filter((user) => {return user.data.email.toLowerCase().includes(filtro.toLowerCase())})
             this.setState({resultados: resultadosFiltrados})
