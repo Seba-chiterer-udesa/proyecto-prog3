@@ -13,6 +13,10 @@ class Register extends Component {
 			username: '',
 			bio:'',
 			error:'',
+			load: true,
+			image:'',
+			
+
 		};
 	}
 
@@ -26,11 +30,11 @@ class Register extends Component {
 			
 		});
 		
-		
+		this.setState({load: false})
 	}
 	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
 
-	registerUser(email, pass, username, bio, checkpass) {
+	registerUser(email, pass, username, bio, checkpass,image) {
 		//Chequear si estan vacios los campos
 		//Si estan vacios, seteame el estado error a un mesaje
 		//Despues pones return
@@ -42,9 +46,25 @@ class Register extends Component {
 			this.setState({error: 'Las contraseñas no coinciden'})
 			return
 		}
-		
-		auth
-			.createUserWithEmailAndPassword(email, pass)
+
+
+		fetch(this.state.image)
+        .then(res=>res.blob())
+        .then(image=>{
+            const ref = storage.ref(`perfil/${Date.now()}.jpg`)
+            ref.put(image)
+            .then(()=>{
+                ref.getDownloadURL()
+                .then(()=>{
+                    this.onImageUpload(image)
+
+                })
+            })
+        })
+        .catch(error=>console.log(error))
+
+
+		auth.createUserWithEmailAndPassword(email, pass)
 			.then((res) => {
 				db
 					.collection('users')
@@ -53,13 +73,16 @@ class Register extends Component {
 						username: this.state.username,
 						bio: this.state.bio,
 						checkpass: this.state.checkpass,
+						image:this.state.image,
 					})
 					.then((res) => {
 						this.setState({
 							email: '',
-							pass: '',
+							username:'',
 							bio: '',
 							checkpass:'',
+							image:'',
+
 						});
 						this.props.navigation.navigate('Login');
 					});
@@ -73,6 +96,14 @@ class Register extends Component {
 			})
 
 	}
+
+ onImageUpload(image){
+        this.setState({
+			image: image
+		},  
+        ) 
+    }
+
 
 	render() {
 		return (
