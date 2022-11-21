@@ -14,8 +14,8 @@ class Login extends Component {
 	}
 
 	loginUser(email, pass) {
-		auth
-			.signInWithEmailAndPassword(email, pass)
+		
+		auth.signInWithEmailAndPassword(email, pass)
 			.then((res) => {
 				this.setState({
 					email: '',
@@ -48,7 +48,7 @@ class Login extends Component {
 					style={styles.field} 
 					placeholder="password" 
 					keyboardType="default" 
-					secureTextEntry 
+					secureTextEntry= {true}
 					onChangeText={(text) => this.setState({ pass: text })} 
 					value={this.state.pass} />
 
@@ -62,6 +62,7 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+	
 	header:{
 		backgroundColor: "#14213D",
 		width: "100%",

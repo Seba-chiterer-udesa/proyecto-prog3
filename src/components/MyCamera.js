@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import {Camera} from 'expo-camera'
-
 import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
-
+import {Camera} from 'expo-camera'
 import {storage} from '../firebase/config'
 
 
-export default class MyCamera extends Component {
+class MyCamera extends Component {
 
     constructor(props){
         super(props)
@@ -24,21 +22,20 @@ export default class MyCamera extends Component {
             permission: true
         }))
         .catch ( error => console.log(error))
-
     }
 
-    tomarFoto(){
-        console.log("Tomar Foto")
+    takePhoto(){
+        
         this.metodosDeCamara.takePictureAsync()
             .then( photo => this.setState({
                 uri: photo.uri,
-                showCamera: false
+                showCamera: false /* dejo de mostrar la camara cuando saco la foto. */
             }))
             .catch (error => console.log(error))
     }
 
-    guardarFoto(){
-        console.log("Guardar Foto")
+    savePhoto(){
+    
         fetch(this.state.uri)
             .then( res => res.blob())
             .then( image => {
@@ -51,10 +48,10 @@ export default class MyCamera extends Component {
                         })
                     })
             })
-            .catch(err => console.log(err))
+            .catch(error => console.log(error))
     }
 
-    clearFoto(){
+    clearPhoto(){
         console.log("Guardar Foto")
         this.setState({
             uri: '',
@@ -78,34 +75,36 @@ export default class MyCamera extends Component {
 
                             <TouchableOpacity 
                                 style={styles.button}
-                                onPress = { ()=>this.tomarFoto()}
-                            >
+                                onPress = { ()=>this.takePhoto()}>
                                 <Text>Tomar Foto</Text>
                             </TouchableOpacity>
-                        </View> :
+                        </View>
+                        
+                        :
                         
                         <View>
-                            {/* Vista previa de la imagen */}
+                            
                             <Image 
                                 style={styles.preview}
-                                source={{uri:this.state.uri}}
+                                source={{uri: this.state.uri}}
                                 resizeMode='cover'
                             />
-                            {/* Guardar fotor */}
+                            
                             <TouchableOpacity 
                                 style={styles.button}
-                                onPress={()=>this.guardarFoto()}
-                            >
+                                onPress={()=>this.savePhoto()}>
                                 <Text>Guardar Foto</Text>
                             </TouchableOpacity>
-                            {/* Rechazar foto */}
+                            
                             <TouchableOpacity 
                                 style={styles.button}
-                                onPress={()=>this.clearFoto()}
-                            >
+                                onPress={()=>this.clearPhoto()}>
                                 <Text>Eliminar</Text>
                             </TouchableOpacity>
-                        </View> : 
+                        </View>
+                        
+                        :
+
                         <Text>No Hay permisos para la camara</Text>
             }
         </View>
@@ -129,3 +128,5 @@ const styles = StyleSheet.create({
         height:250,
     }
 }) 
+
+export default MyCamera;

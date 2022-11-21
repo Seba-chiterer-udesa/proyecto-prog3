@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -22,7 +23,6 @@ class Post extends Component {
 	}
 
 	like() {
-		//Agregar el email del user logueado en el array
 		db
 			.collection('posts')
 			.doc(this.props.dataPost.id)

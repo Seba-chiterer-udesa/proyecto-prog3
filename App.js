@@ -1,5 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
-
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import HomeMenu from './src/components/HomeMenu';
@@ -11,10 +9,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //Objeto con dos componentes Navigator y Screen
 const Stack = createNativeStackNavigator();
 
-{
-	/* La primera Stack.Screen va a ser la primera vista que vea el usuario */
-}
-export default function App() {
+/* La primera Stack.Screen va a ser la primera vista que vea el usuario */
+
+function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
@@ -26,3 +23,5 @@ export default function App() {
 		</NavigationContainer>
 	);
 }
+
+export default App;

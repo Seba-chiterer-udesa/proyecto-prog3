@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { db, auth } from '../firebase/config';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, FlatList, Image, ScrollView, Camera , TextInput} from 'react-native';
+
+import { db, auth } from '../firebase/config';
 import { FontAwesome } from '@expo/vector-icons';
 import firebase from 'firebase';
 
@@ -20,27 +21,25 @@ class Comments extends Component {
     
    componentDidMount(){
 
-    db.collection('posts').doc(this.props.route.params.id).onSnapshot(doc=>{
- 
+    db.collection('posts').doc(this.props.route.params.id).onSnapshot(
+        doc=>{
         this.setState({
             load:false,
             comments: doc.data().comments
         })
-
     })
 
     db.collection('users')
     .where('userName', '==', auth.currentUser.displayName)
-    .onSnapshot(docs=>{
+    .onSnapshot(docs => {
         let user = {};
-        docs.forEach( doc=> {
+        docs.forEach( onedoc => {
         user = ( {
-            id: doc.id, 
-            data: doc.data()})
+            id: onedoc.id, 
+            data: onedoc.data()})
     })
         this.setState({
         user: user,
-        
         })
     })
 
@@ -51,8 +50,8 @@ class Comments extends Component {
     if (this.state.comment == '') {
         return
     } else {
-       
-        db.collection('posts').doc(this.props.route.params.id).update({
+        db.collection('posts').doc(this.props.route.params.id)
+        .update({
             comments: firebase.firestore.FieldValue.arrayUnion({ 
                text: this.state.comment,
                owner: auth.currentUser.displayName,
@@ -121,10 +120,10 @@ class Comments extends Component {
 
                 <TouchableOpacity
                     style={styles.commentcreate}
-                    onPress={()=>{this.Comment(this.state.comment)}}
-                >
-
+                    onPress={()=>{this.Comment(this.state.comment)}}>
+                
                 <Text style={styles.share}>Publicar</Text>
+                
                 </TouchableOpacity>
 
                 </View>

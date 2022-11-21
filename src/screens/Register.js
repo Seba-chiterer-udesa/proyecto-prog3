@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { db, auth } from '../firebase/config';
+import { db, auth, storage } from '../firebase/config';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+/* import * as ImagePicker from 'expo-image-picker'; */
 
 class Register extends Component {
 	
@@ -15,29 +16,25 @@ class Register extends Component {
 			error:'',
 			load: true,
 			image:'',
-			
-
+			permission: false,
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount() { /* Hacemos lo de guardar al usuario en sesion despues del primer renderizado porqeue es lo primero que va a ver el usuario */
 		
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				this.props.navigation.navigate('HomeMenu');
 			}
-			
-			
 		});
-		
+
 		this.setState({load: false})
 	}
+	
 	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
 
-	registerUser(email, pass, username, bio, checkpass,image) {
-		//Chequear si estan vacios los campos
-		//Si estan vacios, seteame el estado error a un mesaje
-		//Despues pones return
+	registerUser(email, pass, username, bio, checkpass, image) {
+		
 		if(this.state.email === ''  || this.state.username === '' || this.state.pass === ''){
 			this.setState({error: 'Todos los campos son obligatorios'})
 			return
@@ -72,36 +69,54 @@ class Register extends Component {
 						email: this.state.email,
 						username: this.state.username,
 						bio: this.state.bio,
-						checkpass: this.state.checkpass,
 						image:this.state.image,
 					})
-					.then((res) => {
-						this.setState({
-							email: '',
-							username:'',
-							bio: '',
-							checkpass:'',
-							image:'',
 
-						});
-						this.props.navigation.navigate('Login');
+					res.user.updateProfile({
+						displayName: username,
+					})
+					
+					this.setState({
+						email: '',
+						username:'',
+						bio: '',
+						pass:'',
+						checkpass:'',
+						image:'',
 					});
 					
+					this.props.navigation.navigate('Login');	
 			})
 			.catch((error) => 
 			{console.log(error)
 			console.log(error.message)
 			this.setState({error: error.message})
-
 			})
-
 	}
 
- onImageUpload(image){
-        this.setState({
-			image: image
-		},  
+	onImageUpload(image){
+        this.setState({image: image}, () => {console.log(this.state.image)}
         ) 
+    }
+
+	image(){
+        ImagePicker.getMediaLibraryPermissionsAsync() 
+        .then(()=>this.setState({
+            permission: true
+        }))
+        .catch(error =>console.log(error))
+        
+        let image = ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        })
+        .then((res) => {
+            if (!image.cancelled) {
+                this.setState({image: res.assets[0].uri})     
+            }
+        })
     }
 
 
@@ -114,7 +129,7 @@ class Register extends Component {
 
 					<TextInput 
 					style={styles.field} 
-					placeholder="email" 
+					placeholder="Email" 
 					keyboardType="email-address" 
 					onChangeText={(text) => this.setState({ email: text })} 
 					value={this.state.email} />
@@ -130,7 +145,7 @@ class Register extends Component {
 					style={styles.field} 
 					placeholder="Contraseña" 
 					keyboardType="default" 
-					secureTextEntry 
+					secureTextEntry= {true}
 					onChangeText={(text) => this.setState({ pass: text })} 
 					value={this.state.pass} />
 
@@ -138,16 +153,22 @@ class Register extends Component {
 					style={styles.field} 
 					placeholder="Repetir Contraseña" 
 					keyboardType="default" 
-					secureTextEntry 
+					secureTextEntry= {true} 
 					onChangeText={(text) => this.setState({ checkpass: text })} 
 					value={this.state.checkpass} />
 
 					<TextInput
-					style={styles.field}b
-					placeholder="Biografia"
+					style={styles.field}
+					placeholder="Mini biografía"
 					keyboardType="default"
 					onChangeText={(text) => this.setState({ bio: text })}
-					value={this.state.bio}	/>
+					value={this.state.bio} />
+
+                    <TouchableOpacity 
+                    style={styles.field}
+                    onPress={() => {this.image()}}>
+                        <Text style={styles.title}>Foto de Perfil</Text>
+                    </TouchableOpacity>
 
 					<Text style={styles.title} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
 					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.username, this.state.bio)}>

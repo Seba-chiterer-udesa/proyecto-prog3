@@ -42,7 +42,7 @@ class Home extends Component {
                     <FlatList 
                         data={this.state.posts}
                         keyExtractor={post => post.id}
-                        renderItem = { ({item}) => <Post dataPost={item}{...this.props} />}//spread operator
+                        renderItem = { ({item}) => <Post dataPost={item}{...this.props} />}// los tres puntos ... se llaman spread operator
                     />
                 </View>
 
