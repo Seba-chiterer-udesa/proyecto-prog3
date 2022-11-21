@@ -58,7 +58,7 @@ class Register extends Component {
                 })
             })
         })
-        .catch(error=>console.log(error))
+        .catch(error => console.log(error))
 
 
 		auth.createUserWithEmailAndPassword(email, pass)
@@ -99,7 +99,7 @@ class Register extends Component {
         ) 
     }
 
-	image(){
+	/* image(){
         ImagePicker.getMediaLibraryPermissionsAsync() 
         .then(()=>this.setState({
             permission: true
@@ -117,7 +117,7 @@ class Register extends Component {
                 this.setState({image: res.assets[0].uri})     
             }
         })
-    }
+    } */
 
 
 	render() {
@@ -164,11 +164,11 @@ class Register extends Component {
 					onChangeText={(text) => this.setState({ bio: text })}
 					value={this.state.bio} />
 
-                    <TouchableOpacity 
+                    {/* <TouchableOpacity 
                     style={styles.field}
                     onPress={() => {this.image()}}>
                         <Text style={styles.title}>Foto de Perfil</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
 					<Text style={styles.title} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
 					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.username, this.state.bio)}>

@@ -1,30 +1,146 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { auth } from '../firebase/config';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { auth, db } from '../firebase/config';
+
+import Post from '../components/Post';
 
 class Profile extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			posts: [],
+		};
 	}
+	
+	componentDidMount() {
+		db.collection('posts')
+		  .where( 'owner' , '==' , auth.currentUser.email)
+		  .orderBy('createdAt' , 'desc')
+		  .onSnapshot(docs => {
+			  let posts = [];
+			  docs.forEach( oneDoc => {
+				posts.push({
+				  id: oneDoc.id,
+				  data: oneDoc.data(),
+				})
+			  })
+			  this.setState({
+				posts: posts,
+			  })
+			} 
+		  ); 
+	  } 
 
 	logOut() {
 		auth.signOut();
 		this.props.navigation.navigate('Login');
 	}
+
+	addPost() {
+		this.props.navigation.navigate('NewPost');
+	  }
 	
-	render() {
+	  render() {
 		return (
-			<>
-				<Text> Mi Perfil </Text>
-				<TouchableOpacity onPress={() => this.logOut()}>
-					<Text>Cerrar Sesion</Text>
-				</TouchableOpacity>
-			</>
+		  <>
+
+			  <View style={styles.container}>
+				<View style={styles.header}>
+				  <View style={styles.flexbox}>
+					<Text style={styles.name}>{auth.currentUser.displayName}</Text>
+					<TouchableOpacity onPress={() => this.logOut()}>
+					  	<Text style={styles.name}>Cerrar Sesión</Text>
+					</TouchableOpacity>
+				  </View>
+				</View>
+				
+				{this.state.posts.length > 0 ? 
+				 
+				 <FlatList
+					style={styles.posts}
+					data={this.state.posts}
+					keyExtractor={ post => post.id.toString()}
+					renderItem = {({item}) => <Post dataPost = {item}{...this.props} />}
+				 />
+
+				 : 
+
+				  <View style={styles.noPost}>
+					<Text style={styles.textNoPost}><strong>No tenes publicaciones</strong></Text>
+					<TouchableOpacity
+					  style={styles.addPost}
+					  onPress={() => this.addPost()}>
+					  <Text><strong>¡Crear tu primer posteo!</strong></Text>
+					</TouchableOpacity>
+				  </View>
+				}
+
+			  </View>
+
+		  </>
 		);
-	}
+	  }
 }
+
+const styles = StyleSheet.create({
+
+	container: {
+	  overflow: 'hidden', /* El overflow hidden es para ocultar el flujo que sobresale de un contenedor */
+	  flex: 1,
+	  flexDirection: 'column',
+	  justifyContent: 'center',
+	  alignItems: 'center',
+	  backgroundColor: '#FFFFFF',
+	},
+	header: {
+	  backgroundColor: '#1B49AB',
+	  boxSizing: 'border-box',
+	  width: '100%',
+	  padding: 10,
+	  flexDirection: 'column',
+	  justifyContent: 'space-around',
+	},
+	flexbox: {
+	  flexWrap: 'wrap',
+	  flexDirection: 'row',
+	  margin: 6,
+	  justifyContent: 'space-between',
+	},
+	posts: {
+	  overflow: 'hidden',
+	  width: '100%',
+	  flex: 9,
+	  flexDirection: 'column',
+	},
+	noPost: {
+	  overflow: 'hidden',
+	  width: '100%',
+	  flex: 1,
+	  flexDirection: 'column',
+	  justifyContent: 'center',
+	  alignItems: 'center',
+	},
+	addPost:{
+	  backgroundColor: '#87C5FC',
+	  textAlign: 'center',
+	  padding: 10,
+	  marginTop: 5,
+	  borderRadius: 5,
+	  width: '50%',
+	},
+	textNoPost: {
+	  textAlign: 'center',
+	  margin: 30,
+	},
+	name: {
+	  textAlign: 'left',
+	  color: 'white',
+	  fontWeight: '600',
+	  fontSize: 15,
+	  padding: 5,
+	}
+  });
 
 export default Profile;
  

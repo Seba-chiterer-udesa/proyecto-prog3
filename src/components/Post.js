@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native';
 
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { FontAwesome } from '@expo/vector-icons';
 
 class Post extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			cantidadDeLikes: this.props.dataPost.data.likes.length,
+			likesAmount: this.props.dataPost.data.likes.length,
 			myLike: false,
 		};
 	}
@@ -22,6 +25,10 @@ class Post extends Component {
 		}
 	}
 
+	delete(id) {
+        db.collection('posts').doc(id).delete()
+    }
+
 	like() {
 		db
 			.collection('posts')
@@ -31,7 +38,7 @@ class Post extends Component {
 			})
 			.then(() =>
 				this.setState({
-					cantidadDeLikes: this.state.cantidadDeLikes + 1,
+					likesAmount: this.state.likesAmount + 1,
 					myLike: true,
 				})
 			)
@@ -47,7 +54,7 @@ class Post extends Component {
 			})
 			.then(() =>
 				this.setState({
-					cantidadDeLikes: this.state.cantidadDeLikes - 1,
+					likesAmount: this.state.likesAmount - 1,
 					myLike: false,
 				})
 			)
@@ -56,23 +63,50 @@ class Post extends Component {
 
 	render() {
 		return (
-			<View style={styles.separator}>
-				<Text>Post de: {this.props.dataPost.data.owner}</Text>
-				<Text>Texto del Post: {this.props.dataPost.data.description}</Text>
-				<Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
-				{this.state.myLike ? (
+			<>
+				
+				{this.props.dataPost.data.ownerPhoto ?
+                        <Image source={{uri: this.props.dataPost.data.ownerPhoto}} style={styles.fotoPerfil}/> /* Imagen del perfil del usuario */
+                    :
+                        <FontAwesome name="user-circle" size={40} color="black" />
+                }
+				
+				
+				<Text>Creado por: {this.props.dataPost.data.owner}</Text> {/* Nombre de Usuario */}
+
+				<Image
+                    style={styles.image}
+                    source={{ uri: this.props.dataPost.data.url }}
+                />
+				
+				<Text>Texto del Post: {this.props.dataPost.data.description}</Text> {/* Descripcion del posteo */}
+				
+				<Text>Likes: {this.state.likesAmount} </Text> {/* Cantidad de likes */}
+
+				{this.state.myLike ? 
 					<TouchableOpacity onPress={() => this.unLike()}>
 						<Text>Quitar Like</Text>
 					</TouchableOpacity>
-				) : (
+				 : 
 					<TouchableOpacity onPress={() => this.like()}>
 						<Text>Like</Text>
 					</TouchableOpacity>
-				)}
+				} {/* Nos lleva a la pantalla de omentarios */}
+
 				<TouchableOpacity onPress={() => this.props.navigation.navigate("Comments", {id: this.props.dataPost.id})}>
 						<Text>Comentarios</Text>
 				</TouchableOpacity>
-			</View>
+
+				{
+                    this.props.dataPost.data.owner === auth.currentUser.email ? 
+                     <TouchableOpacity onPress={() => this.delete(this.props.dataPost.id)}>
+                        <Ionicons name="trash" size="20px" color="red" style={styles.trash} />
+                    </TouchableOpacity>
+                      : 
+                      null 
+                }
+
+			</>
 		);
 	}
 }
@@ -84,6 +118,19 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		paddingHorizontal: 20,
 	},
+	fotoPerfil: {
+        height: "25px",
+        width: "25px",
+        borderRadius: 50
+    },
+	trash: {
+        marginBottom: "12px"
+    },
+	image: {
+		width: "100%",
+		height: 200,
+		borderRadius: 12,
+	  },
 });
 
 export default Post;

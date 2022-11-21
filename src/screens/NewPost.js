@@ -15,25 +15,47 @@ export default class NewPost extends Component {
       likes: [],
       comments: [],
       showCamera: true,
-      url: ''     
+      url: '' ,
+      activeUser: {},
     }
   }
 
-  guardarPost(){
+  componentDidMount() {
+
+    db.collection('users').onSnapshot((docs) =>{
+        docs.forEach((oneDoc) =>{
+
+            if(auth.currentUser.email === oneDoc.data().email){
+                this.setState({
+                    activeUser: {
+                        id: oneDoc.id, 
+                        data: oneDoc.data(),
+                    }
+                })
+            }
+        })
+    })
+
+}
+
+  savePost(){
 
       db.collection('posts').add({
         createdAt: Date.now(),
         owner: auth.currentUser.email,
+        ownerPhoto: this.state.activeUser.data.image,
         description: this.state.description,
         likes: [],
         comments: [],
-        photo: this.state.url
+        url: this.state.url,
+
       })
       .then((res)=>{
+         console.log('El posteo fue exitoso');
          this.setState({
-          description: ""
-         }, () => this.props.navigation.navigate('Home')
-         ) 
+          description: "",
+          showCamera: true,
+         }, () => this.props.navigation.navigate('Home')) /* como el seteo de estado es asincronico, como segundo parametro ponemos adonde queremos que nos lleve cuando seteamos el estado  */
       })
       .catch(error => console.log(error))
 
@@ -41,22 +63,30 @@ export default class NewPost extends Component {
 
   onImageUpload(url){
     this.setState({
-      url,
+      url, /* No hace falta aclarar el valor de la propiedad ya que es igual a la propiedad */
       showCamera: false
     })
   }
 
   render() {
     return (
+     
       <View style={styles.container}>
+      
       {
-        this.state.showCamera ? 
+        this.state.showCamera ?  /* Si la camara esta activada entonces: */
+        
         <MyCamera 
-          onImageUpload = { url => this.onImageUpload(url)}
-        /> :
+          onImageUpload = { (url) => this.onImageUpload(url)}
+        /> 
+       
+        : /* Si la camara no esta activa: */
+
         <View style={styles.container}>
 
           <Text style={styles.title}>Nuevo Post</Text>
+
+          <Image source={{ uri: this.state.url }} style={styles.image} />
 
           <TextInput 
             style={styles.field}
@@ -68,8 +98,8 @@ export default class NewPost extends Component {
 
           <TouchableOpacity 
             style= {styles.button}
-            onPress={()=> this.guardarPost()}>
-            <Text style={styles.buttonText}>Guardar Post</Text>
+            onPress={()=> this.savePost()}>
+            <Text style={styles.buttonText}>Guardar</Text>
           </TouchableOpacity>
 
         </View>
@@ -103,5 +133,11 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         color: '#fff'
-    }
+    },
+    image: {
+      marginTop: 15,
+      height: 300,
+      width: "90%",
+      borderRadius: 12,
+    },
 })

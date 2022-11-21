@@ -14,7 +14,7 @@ class Home extends Component {
     }
     
     componentDidMount(){
-        db.collection('posts').onSnapshot(
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
             docs => {
                 let posts = [];
                 docs.forEach( oneDoc => {
@@ -35,7 +35,7 @@ class Home extends Component {
 
 
     render(){
-        // console.log(this.state);
+        
         return(
                 <View>
                     <Text>Posteos</Text>
@@ -43,6 +43,7 @@ class Home extends Component {
                         data={this.state.posts}
                         keyExtractor={post => post.id}
                         renderItem = { ({item}) => <Post dataPost={item}{...this.props} />}// los tres puntos ... se llaman spread operator
+                         /* usamos ...this.props porque tenemos que pasar el objeto de navegacion, nevigation y route */
                     />
                 </View>
 
