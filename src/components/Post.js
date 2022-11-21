@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView}
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { FontAwesome } from '@expo/vector-icons';
 
 class Post extends Component {
@@ -63,74 +63,130 @@ class Post extends Component {
 
 	render() {
 		return (
-			<>
-				
-				{this.props.dataPost.data.ownerPhoto ?
-                        <Image source={{uri: this.props.dataPost.data.ownerPhoto}} style={styles.fotoPerfil}/> /* Imagen del perfil del usuario */
-                    :
+			<View style={styles.container}>
+                <View style={styles.content}>
+				    {this.props.dataPost.data.ownerPhoto ?
+                        <Image source={{uri: this.props.dataPost.data.ownerPhoto}} style={styles.profilePhoto}/>
+                    	:
                         <FontAwesome name="user-circle" size={40} color="black" />
-                }
-				
-				
-				<Text>Creado por: {this.props.dataPost.data.owner}</Text> {/* Nombre de Usuario */}
-
-				<Image
+                    }
+                    <Text style={styles.username}>
+                            {this.props.dataPost.data.owner}
+                    </Text>
+                </View> 
+                <Image
                     style={styles.image}
                     source={{ uri: this.props.dataPost.data.url }}
                 />
-				
-				<Text>Texto del Post: {this.props.dataPost.data.description}</Text> {/* Descripcion del posteo */}
-				
-				<Text>Likes: {this.state.likesAmount} </Text> {/* Cantidad de likes */}
-
-				{this.state.myLike ? 
-					<TouchableOpacity onPress={() => this.unLike()}>
-						<Text>Quitar Like</Text>
-					</TouchableOpacity>
-				 : 
-					<TouchableOpacity onPress={() => this.like()}>
-						<Text>Like</Text>
-					</TouchableOpacity>
-				} {/* Nos lleva a la pantalla de omentarios */}
-
-				<TouchableOpacity onPress={() => this.props.navigation.navigate("Comments", {id: this.props.dataPost.id})}>
-						<Text>Comentarios</Text>
-				</TouchableOpacity>
-
-				{
-                    this.props.dataPost.data.owner === auth.currentUser.email ? 
-                     <TouchableOpacity onPress={() => this.delete(this.props.dataPost.id)}>
-                        <Ionicons name="trash" size="20px" color="red" style={styles.trash} />
-                    </TouchableOpacity>
-                      : 
-                      null 
-                }
-
-			</>
+                <View style={styles.content}>
+                    <View style={styles.content2}>
+                            <Text style={styles.likes}>
+                                Descripción: {this.props.dataPost.data.description}
+                            </Text>
+                    </View>
+					<View style={styles.content2}>
+						{ this.state.myLike ? 
+                        	<TouchableOpacity onPress={() => this.unLike()}>
+                        	    <Text style={styles.likes}>Quitar Like</Text>
+                        	</TouchableOpacity>
+                        	: 
+                       		<TouchableOpacity onPress={() => this.like()}>
+                        	    <Text style={styles.likes}>Like</Text>
+                        	</TouchableOpacity>
+                        }
+					</View>
+                    <View style={styles.content2}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', {id: this.props.dataPost.id})}> 
+                            <Text style={styles.likes}>Comentarios: {this.props.dataPost.data.comments.length}</Text>
+                            </TouchableOpacity>
+                    </View>
+					<View style={styles.content2}>
+							<Text style={styles.likes}>Likes: {this.state.likesAmount}</Text>
+					</View>
+					<View style={styles.content2}>
+						{
+                        	this.props.dataPost.data.owner == auth.currentUser.email ? 
+                        	<TouchableOpacity onPress={() => this.delete(this.props.dataPost.id)}>
+                            	<Ionicons name='trash' size='20px' style={styles.trash} />
+                        	</TouchableOpacity>
+                         	: 
+                            null 
+                        }
+					</View>	
+                </View>   
+			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	separator: {
-		borderBottomColor: '#ddd',
-		borderBottomWidth: 1,
-		marginBottom: 10,
-		paddingHorizontal: 20,
+    container: {
+		flex: 1,
+		justifyContent: 'center',
+		width: '90%',
+		padding: 5,
+		margin: 'auto',
+		marginBottom: 15,
+		borderStyle:'solid',
+		borderWidth:2,
+		borderRadius:5,
+		borderColor:'#FFFFFF',
+		backgroundColor: '#FFFFFF',
 	},
-	fotoPerfil: {
-        height: "25px",
-        width: "25px",
+	profilePhoto: {
+        height: '25px',
+        width: '25px',
         borderRadius: 50
     },
-	trash: {
-        marginBottom: "12px"
+    image: {
+      width: '100%',
+      height: 300,
     },
-	image: {
-		width: "100%",
-		height: 200,
-		borderRadius: 12,
-	  },
-});
+    content: {
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      margin: 5,
+    },
+    content2: {
+	  width:'100%',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+    },
+    text: {
+      color: 'black',
+      textAlign: 'center',
+      padding: 5,
+    },
+    username: {
+      color: 'black',
+      fontWeight: '600',
+      fontSize: 15,
+      padding: 5,
+      paddingBottom: '12px'
+    },
+    trash: {
+        /* marginBottom: '8px', */
+		color: 'black',
+		padding: 5,
+    },
+    postOwner: {
+        textAlign: 'left',
+        color: 'black',
+        fontWeight: '600',
+        fontSize: 15,
+        padding: 5,
+      },
+    likes: {
+    	textAlign: 'left',
+    	color: 'black',
+    	fontWeight: '500',
+    	fontSize: 15,
+    	padding: 5,
+    },
+  }); 
 
 export default Post;

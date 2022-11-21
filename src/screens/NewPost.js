@@ -84,7 +84,11 @@ export default class NewPost extends Component {
 
         <View style={styles.container}>
 
-          <Text style={styles.title}>Nuevo Post</Text>
+        <View style={styles.header}>
+				      <View style={styles.flexbox}>
+					      <Text style={styles.username}>Nuevo Posteo</Text>
+				      </View>
+				</View>
 
           <Image source={{ uri: this.state.url }} style={styles.image} />
 
@@ -113,11 +117,32 @@ export default class NewPost extends Component {
 const styles = StyleSheet.create({
     container:{
         paddingHorizontal:10,
-        marginTop: 10,
-        height:'100%'
+        paddingTop: 10,
+        height:'100%',
+        backgroundColor:'#2C2A2A',
     },
     title:{
         marginBottom:20
+    },
+    header: {
+      backgroundColor: '#A2A2A2',
+      boxSizing: 'border-box',
+      width: '100%',
+      padding: 10,
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+    },
+    flexbox: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      /* margin: 6, */
+      justifyContent: 'space-between',
+    },
+    username: {
+      textAlign: 'left',
+      color: '#000000',
+      fontWeight: '600',
+      fontSize: 15,
     },
     field:{
         borderColor: '#dcdcdc',

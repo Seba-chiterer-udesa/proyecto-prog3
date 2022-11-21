@@ -43,18 +43,20 @@ class Profile extends Component {
 	
 	  render() {
 		return (
-		  <>
 
 			  <View style={styles.container}>
-				<View style={styles.header}>
-				  <View style={styles.flexbox}>
-					<Text style={styles.name}>{auth.currentUser.displayName}</Text>
-					<TouchableOpacity onPress={() => this.logOut()}>
-					  	<Text style={styles.name}>Cerrar Sesión</Text>
-					</TouchableOpacity>
-				  </View>
-				</View>
-				
+					<View style={styles.header}>
+				  		<View style={styles.flexbox}>
+							<Text style={styles.username}>{auth.currentUser.displayName}</Text>
+							<TouchableOpacity onPress={() => this.logOut()}>
+					  			<Text style={styles.username}>Cerrar Sesión</Text>
+							</TouchableOpacity>
+				  		</View>
+					</View>
+					<View>
+                    	<Text style={styles.title}>Publicaciones de {auth.currentUser.displayName}</Text>
+                	</View>
+
 				{this.state.posts.length > 0 ? 
 				 
 				 <FlatList
@@ -78,7 +80,6 @@ class Profile extends Component {
 
 			  </View>
 
-		  </>
 		);
 	  }
 }
@@ -91,10 +92,10 @@ const styles = StyleSheet.create({
 	  flexDirection: 'column',
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	  backgroundColor: '#FFFFFF',
+	  backgroundColor: '#2C2A2A',
 	},
 	header: {
-	  backgroundColor: '#1B49AB',
+	  backgroundColor: '#A2A2A2',
 	  boxSizing: 'border-box',
 	  width: '100%',
 	  padding: 10,
@@ -104,9 +105,14 @@ const styles = StyleSheet.create({
 	flexbox: {
 	  flexWrap: 'wrap',
 	  flexDirection: 'row',
-	  margin: 6,
+	  /* margin: 6, */
 	  justifyContent: 'space-between',
 	},
+	title:{
+		padding:10,  
+		fontSize: 15,
+		color: 'white',
+	  },
 	posts: {
 	  overflow: 'hidden',
 	  width: '100%',
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
 	  alignItems: 'center',
 	},
 	addPost:{
-	  backgroundColor: '#87C5FC',
+	  backgroundColor: '#A2A2A2',
 	  textAlign: 'center',
 	  padding: 10,
 	  marginTop: 5,
@@ -130,16 +136,16 @@ const styles = StyleSheet.create({
 	  width: '50%',
 	},
 	textNoPost: {
+	  color:'white',
 	  textAlign: 'center',
 	  margin: 30,
 	},
-	name: {
+	username: {
 	  textAlign: 'left',
-	  color: 'white',
+	  color: '#000000',
 	  fontWeight: '600',
 	  fontSize: 15,
-	  padding: 5,
-	}
+	},
   });
 
 export default Profile;

@@ -96,7 +96,7 @@ class Comments extends Component {
                         :
                             <FontAwesome name="user-circle" size={40} color="black" />
                         }
-                        <Text style={styles.username}><strong>{item.owner}</strong></Text>
+                        <Text style={styles.username}><strong>{item.owner}: </strong></Text>
                         <Text style={styles.commetText}>{item.text}</Text>
                     </View>}>
 

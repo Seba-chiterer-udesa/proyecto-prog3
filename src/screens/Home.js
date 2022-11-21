@@ -37,9 +37,17 @@ class Home extends Component {
     render(){
         
         return(
-                <View>
-                    <Text>Posteos</Text>
+                <View style= {styles.container}>
+                    <View style={styles.header}>
+                        <Text style={styles.username}>Bienvenido {auth.currentUser.displayName}</Text>
+                    </View>
+                   
+                    <View>
+                        <Text style={styles.title}>Publicaciones</Text>
+                    </View>
+                    
                     <FlatList 
+                        style={styles.posts}
                         data={this.state.posts}
                         keyExtractor={post => post.id}
                         renderItem = { ({item}) => <Post dataPost={item}{...this.props} />}// los tres puntos ... se llaman spread operator
@@ -50,6 +58,42 @@ class Home extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    
+    container: {
+      overflow: 'hidden',
+      flex: 1,
+      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: '#2C2A2A',
+      color: '#ff9f68',
+    },
+    title:{
+      padding:10,  
+      color:'white',
+      fontSize: 15,
+    },
+    header: {
+      backgroundColor: '#A2A2A2',
+      width: '100%',
+      padding: 10,
+      oxSizing: 'border-box',
+    },
+    posts: {
+      overflow: 'hidden',
+      width: '100%',
+      flex: 9,
+      flexDirection: 'column',
+    },
+    username: {
+      color: 'black',
+      textAlign: 'center',
+      fontSize: 15,
+      fontWeight: '600',
+    },
+  });  
 
 
 export default Home;
