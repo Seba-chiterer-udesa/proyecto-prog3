@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flexDirection: 'column',
       alignItems: 'center',
-      backgroundColor: '#2C2A2A',
+      backgroundColor: '#2D3142',
       color: '#ff9f68',
     },
     title:{
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     header: {
-      backgroundColor: '#A2A2A2',
+      backgroundColor: '#BFC0C0',
       width: '100%',
       padding: 10,
       oxSizing: 'border-box',

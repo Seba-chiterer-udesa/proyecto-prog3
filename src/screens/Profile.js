@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
 	  flexDirection: 'column',
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	  backgroundColor: '#2C2A2A',
+	  backgroundColor: '#2D3142',
 	},
 	header: {
-	  backgroundColor: '#A2A2A2',
+	  backgroundColor: '#BFC0C0',
 	  boxSizing: 'border-box',
 	  width: '100%',
 	  padding: 10,
