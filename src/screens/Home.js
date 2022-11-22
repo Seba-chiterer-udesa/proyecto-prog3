@@ -76,7 +76,11 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     header: {
+<<<<<<< HEAD
       backgroundColor: '#BFC0C0',
+=======
+      backgroundColor: 'purple',
+>>>>>>> 70f7d14d9fd8b449c03d609ea6236ed946a8cafc
       width: '100%',
       padding: 10,
       oxSizing: 'border-box',
@@ -88,10 +92,11 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
     },
     username: {
-      color: 'black',
+      color: 'white',
       textAlign: 'center',
       fontSize: 15,
       fontWeight: '600',
+      
     },
   });  
 

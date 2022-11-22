@@ -95,7 +95,11 @@ const styles = StyleSheet.create({
 	  backgroundColor: '#2D3142',
 	},
 	header: {
+<<<<<<< HEAD
 	  backgroundColor: '#BFC0C0',
+=======
+	  backgroundColor: 'purple',
+>>>>>>> 70f7d14d9fd8b449c03d609ea6236ed946a8cafc
 	  boxSizing: 'border-box',
 	  width: '100%',
 	  padding: 10,
@@ -128,8 +132,9 @@ const styles = StyleSheet.create({
 	  alignItems: 'center',
 	},
 	addPost:{
-	  backgroundColor: '#A2A2A2',
+	  backgroundColor: 'purple',
 	  textAlign: 'center',
+	  color: 'white',
 	  padding: 10,
 	  marginTop: 5,
 	  borderRadius: 5,
@@ -142,7 +147,7 @@ const styles = StyleSheet.create({
 	},
 	username: {
 	  textAlign: 'left',
-	  color: '#000000',
+	  color: 'white',
 	  fontWeight: '600',
 	  fontSize: 15,
 	},
