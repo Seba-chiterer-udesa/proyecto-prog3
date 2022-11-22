@@ -184,7 +184,7 @@ class Register extends Component {
 
 const styles = StyleSheet.create({
 	header:{
-		backgroundColor: "#14213D",
+		backgroundColor: "purple",
 		width: "100%",
 		padding: 10,
 		marginBottom: 20,

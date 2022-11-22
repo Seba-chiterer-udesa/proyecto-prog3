@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize:16,
-        borderColor: '#552586',
+        borderColor: 'purple',
         borderWidth:1,
         borderStyle:'solid',
         borderRadius:4,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
     commentcreate: {
         padding:8,
-        backgroundColor:'blue',
+        backgroundColor:'purple',
         borderRadius:8,
         textAlign:'center',
         marginVertical:8,

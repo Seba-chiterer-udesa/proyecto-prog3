@@ -121,7 +121,9 @@ const styles = StyleSheet.create({
     },    
     search: {
         fontSize:17,
-        borderColor: '#020F0C',
+        borderColor: 'purple',
+        backgroundColor: 'purple',
+        color: 'white',
         borderStyle:'solid',
         borderRadius:5,
         borderWidth:0.5,
