@@ -43,12 +43,12 @@ class UserProfile extends Component {
             <View style={styles.flexbox}>
                 <Image source={{uri: this.props.route.params.image}} style={styles.profilePhoto}/> 
                 <Text style={styles.username}>{this.props.route.params.owner}</Text>
-                <Text style={styles.biography}>
-                    Biografía: {this.props.route.params.bio}
-                </Text>
+                
             </View>
           </View>
-
+          <Text style={styles.biography}>
+                    Biografía: {this.props.route.params.bio}
+                </Text>
           <View>
                 <Text style={styles.title}>Publicaciones de {this.props.route.params.owner}</Text>
           </View>
@@ -76,12 +76,12 @@ class UserProfile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'hidden', /* El overflow hidden es para ocultar el flujo que sobresale de un contenedor */
+        overflow: 'hidden', 
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#2D3142',
+        backgroundColor: '#dee2ff',
       },
       profilePhoto: {
         height: '25px',
@@ -95,17 +95,19 @@ const styles = StyleSheet.create({
         padding: 10,
         flexDirection: 'column',
         justifyContent: 'space-around',
+        textAlign: 'left'
       },
       flexbox: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        /* margin: 6, */
+         margin: 6, 
         justifyContent: 'space-between',
+        textAlign: 'left',
       },
       title:{
           padding:10,  
           fontSize: 15,
-          color: 'white',
+          color: 'black',
         },
       posts: {
         overflow: 'hidden',
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
         width: '50%',
       },
       textNoPost: {
-        color:'white',
+        color:'black',
         textAlign: 'center',
         margin: 30,
       },
@@ -143,10 +145,18 @@ const styles = StyleSheet.create({
       },
       biography: {
         textAlign: "center",
-        color: "white",
+        color: "black",
         fontWeight: "600",
         fontSize: 15,
         padding: 5,
+        },
+        username: {
+          textAlign: 'left',
+          color: 'white',
+          fontWeight: '600',
+          fontSize: 15,
+          marginLeft:10,
+          marginTop:3,
         },
   });
 
