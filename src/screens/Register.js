@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { db, auth, storage } from '../firebase/config';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-/* import * as ImagePicker from 'expo-image-picker'; */
+
+import * as ImagePicker from 'expo-image-picker';
 
 class Register extends Component {
 	
@@ -99,7 +100,7 @@ class Register extends Component {
         ) 
     }
 
-	/* image(){
+	image(){
         ImagePicker.getMediaLibraryPermissionsAsync() 
         .then(()=>this.setState({
             permission: true
@@ -117,7 +118,7 @@ class Register extends Component {
                 this.setState({image: res.assets[0].uri})     
             }
         })
-    } */
+    }
 
 
 	render() {
@@ -128,11 +129,11 @@ class Register extends Component {
 				</View>
 
 					<TextInput 
-					style={styles.field} 
-					placeholder="Email" 
-					keyboardType="email-address" 
-					onChangeText={(text) => this.setState({ email: text })} 
-					value={this.state.email} />
+						style={styles.field} 
+						placeholder="Email" 
+						keyboardType="email-address" 
+						onChangeText={(text) => this.setState({ email: text })} 
+						value={this.state.email} />
 
 					<TextInput
 						style={styles.field}
@@ -142,27 +143,33 @@ class Register extends Component {
 						value={this.state.username}	/>
 
 					<TextInput 
-					style={styles.field} 
-					placeholder="Contraseña" 
-					keyboardType="default" 
-					secureTextEntry= {true}
-					onChangeText={(text) => this.setState({ pass: text })} 
-					value={this.state.pass} />
+						style={styles.field} 
+						placeholder="Contraseña" 
+						keyboardType="default" 
+						secureTextEntry= {true}
+						onChangeText={(text) => this.setState({ pass: text })} 
+						value={this.state.pass} />
 
 					<TextInput 
-					style={styles.field} 
-					placeholder="Repetir Contraseña" 
-					keyboardType="default" 
-					secureTextEntry= {true} 
-					onChangeText={(text) => this.setState({ checkpass: text })} 
-					value={this.state.checkpass} />
+						style={styles.field} 
+						placeholder="Repetir Contraseña" 
+						keyboardType="default" 
+						secureTextEntry= {true} 
+						onChangeText={(text) => this.setState({ checkpass: text })} 
+						value={this.state.checkpass} />
 
 					<TextInput
-					style={styles.field}
-					placeholder="Mini biografía"
-					keyboardType="default"
-					onChangeText={(text) => this.setState({ bio: text })}
-					value={this.state.bio} />
+						style={styles.field}
+						placeholder="Mini biografía"
+						keyboardType="default"
+						onChangeText={(text) => this.setState({ bio: text })}
+						value={this.state.bio} />
+
+					<TouchableOpacity 
+                        style={styles.field}
+                        onPress={()=>{this.image()}}>
+                        <Text>Elegí tu foto de perfil</Text>
+                    </TouchableOpacity>
 
 
 					<Text style={styles.title} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>

@@ -5,6 +5,7 @@ import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { FontAwesome } from '@expo/vector-icons';
 
 class Post extends Component {
@@ -14,6 +15,7 @@ class Post extends Component {
 		this.state = {
 			likesAmount: this.props.dataPost.data.likes.length,
 			myLike: false,
+			/* users: [], */
 		};
 	}
 
@@ -23,6 +25,20 @@ class Post extends Component {
 				myLike: true,
 			});
 		}
+
+		/* db.collection("users")
+		.onSnapshot((users) => {
+                let users =[]
+                users.forEach(oneUser => {
+                    users.push({
+                        id: oneUser.id,
+                        data: oneUser.data()
+                    })
+                }) 
+                this.setState({
+                    users: users
+                })
+            }) */
 	}
 
 	delete(id) {
@@ -64,7 +80,8 @@ class Post extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-                <View style={styles.content}>
+                
+				<View style={styles.content}>
 				    {this.props.dataPost.data.ownerPhoto ?
                         <Image source={{uri: this.props.dataPost.data.ownerPhoto}} style={styles.profilePhoto}/>
                     	:
@@ -74,10 +91,12 @@ class Post extends Component {
                             {this.props.dataPost.data.owner}
                     </Text>
                 </View> 
+
                 <Image
                     style={styles.image}
                     source={{ uri: this.props.dataPost.data.url }}
                 />
+
                 <View style={styles.content}>
                     <View style={styles.content2}>
                             <Text style={styles.likes}>
@@ -87,11 +106,21 @@ class Post extends Component {
 					<View style={styles.content2}>
 						{ this.state.myLike ? 
                         	<TouchableOpacity onPress={() => this.unLike()}>
-                        	    <Text style={styles.likes}>Quitar Like</Text>
+                        	    <Ionicons
+                           			 style={styles.heart}
+                            		 name="heart"
+                            		 size="20px"
+                            		 color="red"
+                            	/>
                         	</TouchableOpacity>
                         	: 
                        		<TouchableOpacity onPress={() => this.like()}>
-                        	    <Text style={styles.likes}>Like</Text>
+                        	    <Ionicons
+                            		style={styles.heart}
+                            		name="heart-outline"
+                            		size="20px"
+                            		color="black"
+                            />
                         	</TouchableOpacity>
                         }
 					</View>
@@ -111,7 +140,7 @@ class Post extends Component {
                         	</TouchableOpacity>
                          	: 
                             null 
-                        }
+                         }
 					</View>	
                 </View>   
 			</View>
@@ -187,6 +216,9 @@ const styles = StyleSheet.create({
     	fontSize: 15,
     	padding: 5,
     },
+	heart: {
+		marginLeft: 10,
+	},
   }); 
 
 export default Post;

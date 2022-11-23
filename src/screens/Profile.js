@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import { auth, db } from '../firebase/config';
 
 import Post from '../components/Post';
@@ -10,10 +10,15 @@ class Profile extends Component {
 		super(props);
 		this.state = {
 			posts: [],
+			activeUser:{},
+			image:'',
+			bio:'',
+			data: [],
 		};
 	}
 	
 	componentDidMount() {
+		
 		db.collection('posts')
 		  .where( 'owner' , '==' , auth.currentUser.email)
 		  .orderBy('createdAt' , 'desc')
@@ -29,7 +34,25 @@ class Profile extends Component {
 				posts: posts,
 			  })
 			} 
-		  ); 
+		  )
+
+		  db.collection('users').onSnapshot( docs =>{
+			docs.forEach(oneDoc => {
+				if(auth.currentUser.email === oneDoc.data().email){
+					this.setState({
+						activeUser: {
+							id: oneDoc.id, 
+							data: oneDoc.data(),
+						}
+					})				
+				this.setState({
+					bio: this.state.activeUser.data.bio,
+					image: this.state.activeUser.data.image
+				})
+				}
+			})
+		})
+
 	  } 
 
 	logOut() {
@@ -47,12 +70,18 @@ class Profile extends Component {
 			  <View style={styles.container}>
 					<View style={styles.header}>
 				  		<View style={styles.flexbox}>
+						    <Image source={{uri: this.state.image}} style={styles.profilePhoto}/>
 							<Text style={styles.username}>{auth.currentUser.displayName}</Text>
 							<TouchableOpacity onPress={() => this.logOut()}>
 					  			<Text style={styles.username}>Cerrar Sesión</Text>
 							</TouchableOpacity>
 				  		</View>
 					</View>
+					<View>
+                    	<Text style={styles.data}> Biografía: {this.state.biografia} </Text>
+                		<Text style={styles.data}> Publicaciones:{this.state.posts.length} </Text>
+                		<Text style={styles.data}> Email: {auth.currentUser.email}</Text>
+              		</View>
 					<View>
                     	<Text style={styles.title}>Publicaciones de {auth.currentUser.displayName}</Text>
                 	</View>
@@ -94,6 +123,13 @@ const styles = StyleSheet.create({
 	  alignItems: 'center',
 	  backgroundColor: '#2D3142',
 	},
+	data:{
+		textAlign: "center",
+		color: "white",
+		fontWeight: "600",
+		fontSize: 15,
+		padding: 5,
+	  },
 	header: {
 	  backgroundColor: 'purple',
 	  boxSizing: 'border-box',
@@ -113,6 +149,11 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		color: 'white',
 	  },
+	profilePhoto: {
+       height: '25px',
+       width: '25px',
+       borderRadius: 50
+    },
 	posts: {
 	  overflow: 'hidden',
 	  width: '100%',

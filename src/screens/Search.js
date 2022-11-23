@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../firebase/config';
-import { ScrollView, StyleSheet, View, TouchableOpacity, TextInput, Text, FlatList} from 'react-native';
+import { ScrollView, StyleSheet, View, TouchableOpacity, TextInput, Text, FlatList, Image} from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -82,13 +82,13 @@ export default class Search extends Component {
                 keyExtractor={ (item) => item.id.toString()}
                 ItemSeparatorComponent={()=>(<View style={{height: 1, backgroundColor: '#B7B9BF', width: 300, marginVertical: 5, alignSelf:'center'}}></View>)}
                 renderItem={({item})=> 
-
-                <TouchableOpacity onPress={()=> {this.props.navigation.navigate('Profile')}}>
-                    <View style={styles.usersResults}>
-                        <FontAwesome name="user-circle" size={40} color="black" />
+                
+                <View style={styles.usersResults}> 
+                    <Image source={{uri: item.data.image}} style={styles.profilePhoto}/>
+                    <TouchableOpacity onPress= {()=> this.props.navigation.navigate("UserProfile",{ owner: item.data.email, bio:item.data.bio, image:item.data.image})}>
                         <Text style={styles.username}>{item.data.email}</Text>
-                    </View>
-                </TouchableOpacity>}>
+                    </TouchableOpacity>
+                </View>}>
 
             </FlatList>
 
@@ -150,5 +150,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: 'black',
         alignSelf: 'center'
-    }
+    },
+    profilePhoto: {
+        height: '25px',
+        width: '25px',
+        borderRadius: 50
+    },
 })
