@@ -98,18 +98,14 @@ class Post extends Component {
                 />
 
                 <View style={styles.content}>
-                    <View style={styles.content2}>
-                            <Text style={styles.likes}>
-                                Descripción: {this.props.dataPost.data.description}
-                            </Text>
-                    </View>
+                    
 					<View style={styles.content2}>
 						{ this.state.myLike ? 
                         	<TouchableOpacity onPress={() => this.unLike()}>
                         	    <Ionicons
                            			 style={styles.heart}
                             		 name="heart"
-                            		 size="20px"
+                            		 size="25px"
                             		 color="red"
                             	/>
                         	</TouchableOpacity>
@@ -118,12 +114,17 @@ class Post extends Component {
                         	    <Ionicons
                             		style={styles.heart}
                             		name="heart-outline"
-                            		size="20px"
+                            		size="25px"
                             		color="black"
                             />
                         	</TouchableOpacity>
                         }
 					</View>
+					<View style={styles.content2}>
+                            <Text style={styles.likes}>
+                                Descripción: {this.props.dataPost.data.description}
+                            </Text>
+                    </View>
                     <View style={styles.content2}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', {id: this.props.dataPost.id})}> 
                             <Text style={styles.likes}>Comentarios: {this.props.dataPost.data.comments.length}</Text>
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     	padding: 5,
     },
 	heart: {
-		marginLeft: 10,
+		padding:5,
 	},
   }); 
 

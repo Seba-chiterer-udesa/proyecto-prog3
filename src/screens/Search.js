@@ -5,7 +5,6 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, TextInput, Text, FlatLi
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-
 export default class Search extends Component {
    
     constructor() {
@@ -52,7 +51,7 @@ export default class Search extends Component {
 
   render() {
     return (
-        <ScrollView>
+        <ScrollView style={styles.main}>
             
             <View style={styles.container}>
             
@@ -80,7 +79,7 @@ export default class Search extends Component {
             <FlatList /* Recorremos el array de resultados que son las personas que coinciden con la busqueda */
                 data={this.state.results}
                 keyExtractor={ (item) => item.id.toString()}
-                ItemSeparatorComponent={()=>(<View style={{height: 1, backgroundColor: '#B7B9BF', width: 300, marginVertical: 5, alignSelf:'center'}}></View>)}
+                ItemSeparatorComponent={()=>(<View style={{height: 1, backgroundColor: 'black', width: 300, marginVertical: 10, alignSelf:'center'}}></View>)}
                 renderItem={({item})=> 
                 
                 <View style={styles.usersResults}> 
@@ -110,11 +109,15 @@ export default class Search extends Component {
 }
 
 const styles = StyleSheet.create({
+    main:{
+        backgroundColor:'#dee2ff'
+    },
     container: {
         display: 'flex',
         flexDirection:'row',
         justifyContent: 'center',
         marginHorizontal:6,
+        backgroundColor:'#dee2ff'
     },    
     lupa: {
         alignSelf: 'center',

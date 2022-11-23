@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		alignItems: "center",
-		backgroundColor: "#FFFFFF",
+		backgroundColor: '#dee2ff',
 		color: "#ff9f68",
 		paddingTop: 20,
 	},
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
 	}, */
 	field: {
 		width: "50%",
-		backgroundColor: "#E5E5E5",
+		backgroundColor: "white",
 		textAlign: "center",
 		padding: 7,
 		marginTop: 5,

@@ -119,13 +119,13 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         paddingTop: 10,
         height:'100%',
-        backgroundColor:'#2C2A2A',
+        backgroundColor:'#dee2ff',
     },
     title:{
         marginBottom:20
     },
     header: {
-      backgroundColor: '#A2A2A2',
+      backgroundColor: 'purple',
       boxSizing: 'border-box',
       width: '100%',
       padding: 10,
@@ -135,26 +135,27 @@ const styles = StyleSheet.create({
     flexbox: {
       flexWrap: 'wrap',
       flexDirection: 'row',
-      /* margin: 6, */
+      backgroundColor:'purple',
       justifyContent: 'space-between',
     },
     username: {
       textAlign: 'left',
-      color: '#000000',
+      color: 'white',
       fontWeight: '600',
       fontSize: 15,
     },
     field:{
-        borderColor: '#dcdcdc',
+        borderColor: 'purple',
         borderWidth: 1,
         borderRadius: 2,
         padding:3,
-        marginBottom:8
+        marginBottom:8,
+        marginTop:10,
     },
     button: {
         borderRadius: 2,
         padding:3,
-        backgroundColor: 'green',
+        backgroundColor: 'purple',
     },
     buttonText:{
         color: '#fff'

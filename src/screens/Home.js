@@ -67,18 +67,18 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flexDirection: 'column',
       alignItems: 'center',
-      backgroundColor: '#2D3142',
+      backgroundColor: '#dee2ff',
       color: '#ff9f68',
     },
     title:{
       padding:10,  
-      color:'white',
+      color:'black',
       fontSize: 15,
     },
     header: {
       backgroundColor: 'purple',
       width: '100%',
-      padding: 10,
+      padding: 15,
       oxSizing: 'border-box',
     },
     posts: {

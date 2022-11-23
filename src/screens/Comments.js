@@ -75,7 +75,7 @@ class Comments extends Component {
             
             this.state.load ? <Load/> :
             
-            <ScrollView>
+            <ScrollView style={styles.main}>
                
                 <View style={styles.container}>
 
@@ -136,11 +136,15 @@ class Comments extends Component {
 
 const styles = StyleSheet.create({
    
+    main:{
+        backgroundColor:'#dee2ff',
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor:'#dee2ff',
     },
     input: {
         fontSize:16,

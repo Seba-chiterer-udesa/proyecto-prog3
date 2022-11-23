@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {Camera} from 'expo-camera'
 import {storage} from '../firebase/config'
 
+import { Entypo } from '@expo/vector-icons';
+
 
 class MyCamera extends Component {
 
@@ -76,7 +78,7 @@ class MyCamera extends Component {
                             <TouchableOpacity 
                                 style={styles.button}
                                 onPress = { ()=>this.takePhoto()}>
-                                <Text>Tomar Foto</Text>
+                                <Entypo name="camera" size={50} color="white" />
                             </TouchableOpacity>
                         </View>
                         
@@ -91,15 +93,15 @@ class MyCamera extends Component {
                             />
                             
                             <TouchableOpacity 
-                                style={styles.button}
+                                style={styles.button2}
                                 onPress={()=>this.savePhoto()}>
-                                <Text>Guardar Foto</Text>
+                                <Text style={styles.text}>Guardar Foto</Text>
                             </TouchableOpacity>
                             
                             <TouchableOpacity 
-                                style={styles.button}
+                                style={styles.button2}
                                 onPress={()=>this.clearPhoto()}>
-                                <Text>Eliminar</Text>
+                                <Text style={styles.text}>Eliminar</Text>
                             </TouchableOpacity>
                         </View>
                         
@@ -119,17 +121,36 @@ const styles = StyleSheet.create({
     },
     button:{
         height: '20%',
-        width:'50%',
+        width:'40%',
         borderColor: '#ccc',
-        backgroundColor:'#A2A2A2',
+        backgroundColor:'purple',
         borderWidth: 1,
         padding: 5,
         borderRadius: 4,
-        marginTop: 20
+        marginTop: 20,
+        justifyContent:'center',
+        alignItems:'center',
+        marginBottom:20,
+    },
+    button2:{
+        height: '20%',
+        width:'30%',
+        borderColor: '#ccc',
+        backgroundColor:'purple',
+        color:'white',
+        borderWidth: 1,
+        padding: 5,
+        borderRadius: 4,
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:5,
     },
     preview:{
         height:250,
-    }
+    },
+    text:{
+        color:'white' 
+    },
 }) 
 
 export default MyCamera;

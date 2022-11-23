@@ -70,17 +70,20 @@ class Profile extends Component {
 			  <View style={styles.container}>
 					<View style={styles.header}>
 				  		<View style={styles.flexbox}>
-						    <Image source={{uri: this.state.image}} style={styles.profilePhoto}/>
-							<Text style={styles.username}>{auth.currentUser.displayName}</Text>
+							<View style={styles.flexbox2}>
+								<Image source={{uri: this.state.image}} style={styles.profilePhoto}/>
+								<Text style={styles.username}>{auth.currentUser.displayName}</Text>
+							</View>
+						    
 							<TouchableOpacity onPress={() => this.logOut()}>
 					  			<Text style={styles.username}>Cerrar Sesión</Text>
 							</TouchableOpacity>
 				  		</View>
 					</View>
-					<View>
-                    	<Text style={styles.data}> Biografía: {this.state.biografia} </Text>
+					<View style={styles.dataContainer}>
                 		<Text style={styles.data}> Publicaciones:{this.state.posts.length} </Text>
                 		<Text style={styles.data}> Email: {auth.currentUser.email}</Text>
+						<Text style={styles.data}> Biografía: {this.state.biografia}</Text>
               		</View>
 					<View>
                     	<Text style={styles.title}>Publicaciones de {auth.currentUser.displayName}</Text>
@@ -102,7 +105,7 @@ class Profile extends Component {
 					<TouchableOpacity
 					  style={styles.addPost}
 					  onPress={() => this.addPost()}>
-					  <Text><strong>¡Crear tu primer posteo!</strong></Text>
+					  <Text style={styles.newPost} ><strong>Crear tu primer posteo</strong></Text>
 					</TouchableOpacity>
 				  </View>
 				}
@@ -121,37 +124,44 @@ const styles = StyleSheet.create({
 	  flexDirection: 'column',
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	  backgroundColor: '#2D3142',
+	  backgroundColor: '#dee2ff',
 	},
 	data:{
 		textAlign: "center",
-		color: "white",
+		color: "black",
 		fontWeight: "600",
 		fontSize: 15,
 		padding: 5,
 	  },
+	dataContainer:{
+		marginTop:10,
+	},  
 	header: {
 	  backgroundColor: 'purple',
 	  boxSizing: 'border-box',
 	  width: '100%',
-	  padding: 10,
+	  padding: 15,
 	  flexDirection: 'column',
 	  justifyContent: 'space-around',
 	},
 	flexbox: {
 	  flexWrap: 'wrap',
 	  flexDirection: 'row',
-	  /* margin: 6, */
 	  justifyContent: 'space-between',
 	},
+	flexbox2: {
+		flexWrap: 'wrap',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	  },
 	title:{
 		padding:10,  
 		fontSize: 15,
-		color: 'white',
+		color: 'black',
 	  },
 	profilePhoto: {
-       height: '25px',
-       width: '25px',
+       height: '30px',
+       width: '30px',
        borderRadius: 50
     },
 	posts: {
@@ -168,6 +178,9 @@ const styles = StyleSheet.create({
 	  justifyContent: 'center',
 	  alignItems: 'center',
 	},
+	newPost:{
+		color:'white'
+	},
 	addPost:{
 	  backgroundColor: 'purple',
 	  textAlign: 'center',
@@ -178,7 +191,7 @@ const styles = StyleSheet.create({
 	  width: '50%',
 	},
 	textNoPost: {
-	  color:'white',
+	  color:'black',
 	  textAlign: 'center',
 	  margin: 30,
 	},
@@ -187,6 +200,8 @@ const styles = StyleSheet.create({
 	  color: 'white',
 	  fontWeight: '600',
 	  fontSize: 15,
+	  marginLeft:10,
+	  marginTop:3,
 	},
   });
 
