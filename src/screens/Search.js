@@ -55,7 +55,7 @@ export default class Search extends Component {
             
             <View style={styles.container}>
             
-            <TextInput /* En este caso elejimos filtrar a traves del mail de los usuarios al hacer la busqueda */
+            <TextInput 
                 style={styles.search}
                 keyboardType='default'
                 placeholder='Buscar por Email'
@@ -76,7 +76,7 @@ export default class Search extends Component {
 
             <Text style={styles.text}>Resultados de búsqueda</Text>
            
-            <FlatList /* Recorremos el array de resultados que son las personas que coinciden con la busqueda */
+            <FlatList 
                 data={this.state.results}
                 keyExtractor={ (item) => item.id.toString()}
                 ItemSeparatorComponent={()=>(<View style={{height: 1, backgroundColor: 'black', width: 300, marginVertical: 10, alignSelf:'center'}}></View>)}
@@ -95,7 +95,7 @@ export default class Search extends Component {
 
             :
 
-            this.state.search && /* Para que el mensaje solo aparezca despues de que el usuario realiza la busqueda */
+            this.state.search && 
 
             <View>
                 <Text style={styles.text}>No encontramos usuarios que coincidan con la busqueda.</Text>
