@@ -164,11 +164,6 @@ class Register extends Component {
 					onChangeText={(text) => this.setState({ bio: text })}
 					value={this.state.bio} />
 
-                    {/* <TouchableOpacity 
-                    style={styles.field}
-                    onPress={() => {this.image()}}>
-                        <Text style={styles.title}>Foto de Perfil</Text>
-                    </TouchableOpacity> */}
 
 					<Text style={styles.title} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
 					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.username, this.state.bio)}>
