@@ -101,6 +101,7 @@ class Post extends Component {
                     
 					<View style={styles.content2}>
 						{ this.state.myLike ? 
+						
                         	<TouchableOpacity onPress={() => this.unLike()}>
                         	    <Ionicons
                            			 style={styles.heart}

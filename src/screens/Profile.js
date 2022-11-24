@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Image } 
 import { auth, db } from '../firebase/config';
 
 import Post from '../components/Post';
+import { ScrollView } from 'react-native-web';
 
 class Profile extends Component {
 	
